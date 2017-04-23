@@ -18,3 +18,23 @@ LOAD CSV WITH HEADERS FROM "file:///github-clustering/packages_in_file_nodes.csv
 CREATE (p:Packages { packagename: csvLine.package, count: toInt(csvLine.count) })
 
 CREATE INDEX ON :Packages(packagename)
+
+
+
+SELECT type, repo.name, created_at,actor.login,
+JSON_EXTRACT(payload, '$.action') as event, 
+FROM (TABLE_DATE_RANGE([githubarchive:day.], 
+TIMESTAMP('2017-04-22'), 
+TIMESTAMP('2017-04-22')
+)) 
+WHERE type = 'PushEvent'
+LIMIT 100
+
+SELECT type, repo.name, created_at,actor.login,
+JSON_EXTRACT(payload, '$.action') as event, 
+FROM (TABLE_DATE_RANGE([githubarchive:day.], 
+TIMESTAMP('2017-04-22'), 
+TIMESTAMP('2017-04-22')
+)) 
+WHERE type = 'IssueCommentEvent'
+LIMIT 1000
