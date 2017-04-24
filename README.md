@@ -99,3 +99,21 @@ ORDER BY touchs DESC
 LIMIT 1
 
 
+
+HBASE COMMANDS
+
+command that worked 
+
+hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=','  -Dimporttsv.columns="HBASE_ROW_KEY,project:project_id,project:language,size:bytes,project:url,project:repo,time:measured_at,size:percent,size:total_bytes" 'githublanguages' hdfs://localhost:9000/hbase-data-languages.csv
+
+project_id,language,bytes,url,repo,measured_at,percent,total_bytes
+
+//create the table in hbase column family
+create 'githublanguages','project','size','time'
+
+
+create this table in phoenix
+
+CREATE TABLE "githublanguages" ( ROWKEY VARCHAR PRIMARY KEY, "project"."project_id" VARCHAR,"project"."language" VARCHAR,"size"."bytes" VARCHAR,"project"."url" VARCHAR,"project"."repo" VARCHAR,"time"."measured_at" VARCHAR,"size"."percent" VARCHAR,"size"."total_bytes" VARCHAR) ;
+
+
