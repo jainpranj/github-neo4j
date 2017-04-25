@@ -122,4 +122,12 @@ go to phoenix
 ./sqlline.py
 to start ./squirrel-start.sh
 
+PIG
+queryData = LOAD '/home/pranjal/Downloads/github-neo4j-master/hbase-data-languages_new.csv' USING PigStorage(',') AS (ID:int,project_id:chararray,language:chararray,bytes:int,url:chararray,repo:chararray,measured_at:chararray,percent:chararray,total_bytes:chararray);
+groupNewData = GROUP queryData BY language;
+countData = FOREACH groupNewData GENERATE group, COUNT(queryData.language) AS topLanguages;
+orderedData = ORDER countData by topLanguages DESC;
+finalData = LIMIT orderedData 10;
+STORE finalData INTO 'outFile';
+
 
