@@ -118,5 +118,8 @@ CREATE TABLE "githublanguages" ( ROWKEY VARCHAR PRIMARY KEY, "project"."project_
 
  create index lang_index on table githublanguages(id,language) as 'lang'
 
+go to phoenix
+./sqlline.py
+to start ./squirrel-start.sh
 
 
