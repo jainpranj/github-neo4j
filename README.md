@@ -116,4 +116,7 @@ create this table in phoenix
 
 CREATE TABLE "githublanguages" ( ROWKEY VARCHAR PRIMARY KEY, "project"."project_id" VARCHAR,"project"."language" VARCHAR,"size"."bytes" VARCHAR,"project"."url" VARCHAR,"project"."repo" VARCHAR,"time"."measured_at" VARCHAR,"size"."percent" VARCHAR,"size"."total_bytes" VARCHAR) ;
 
+ create index lang_index on table githublanguages(id,language) as 'lang'
+
+
 
