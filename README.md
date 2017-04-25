@@ -2,8 +2,8 @@
 
 ##**GITHUB PYTHON PACKAGE ANALYSIS -RELATIONSHIP BETWEEN LANGUAGES**
 
-'''LOAD CSV WITH HEADERS FROM "file:///github-clustering/packages_in_file_nodes.csv" AS csvLine
-CREATE (p:Packages { packagename: csvLine.package, count: toInt(csvLine.count) })'''
+```LOAD CSV WITH HEADERS FROM "file:///github-clustering/packages_in_file_nodes.csv" AS csvLine
+CREATE (p:Packages { packagename: csvLine.package, count: toInt(csvLine.count) })```
 
 Match(p:Packages)-[d:DEPENDS]->(n) Where p.packagename = 'django' Return n order by d.count desc limit 10
 
