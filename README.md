@@ -2,6 +2,7 @@
 
 ##**GITHUB PYTHON PACKAGE ANALYSIS -RELATIONSHIP BETWEEN LANGUAGES**
 ##**LOAD LANGUAGES**
+
 `LOAD CSV WITH HEADERS FROM "file:///github-clustering/packages_in_file_nodes.csv" AS csvLine
 CREATE (p:Packages { packagename: csvLine.package, count: toInt(csvLine.count) })`
 
@@ -15,6 +16,7 @@ MERGE (package)-[:DEPENDS { count: csvLine.count }]->(package2)`
 
 
 ##**QUERIES**
+
 `Match(p:Packages)-[d:DEPENDS]->(n) Where p.packagename = 'django' Return n order by d.count desc limit 10`
 
 
@@ -118,9 +120,11 @@ LIMIT 1`
 `hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=','  -Dimporttsv.columns="HBASE_ROW_KEY,project:project_id,project:language,size:bytes,project:url,project:repo,time:measured_at,size:percent,size:total_bytes" 'githublanguages' hdfs://localhost:9000/hbase-data-languages.csv`
 
 #**COLUMNS**
+
 project_id,language,bytes,url,repo,measured_at,percent,total_bytes
 
 #**create the table in hbase column family**
+
 `create 'githublanguages','project','size','time'`
 
 
@@ -131,10 +135,12 @@ project_id,language,bytes,url,repo,measured_at,percent,total_bytes
  `create index lang_index on table githublanguages(id,language) as 'lang'`
 
 #**go to phoenix**
+
 `./sqlline.py
 to start ./squirrel-start.sh`
 
 #**PIG**
+
 `queryData = LOAD '/home/pranjal/Downloads/github-neo4j-master/hbase-data-languages_new.csv' USING PigStorage(',') AS (ID:int,project_id:chararray,language:chararray,bytes:int,url:chararray,repo:chararray,measured_at:chararray,percent:chararray,total_bytes:chararray);
 groupNewData = GROUP queryData BY language;
 countData = FOREACH groupNewData GENERATE group, COUNT(queryData.language) AS topLanguages;
